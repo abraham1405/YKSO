@@ -36,7 +36,7 @@ class AuthController extends Controller
                 'photo' => $user->photo
             ]);
 
-            return view('app.home', ['ok_alert' => 'Bienvenido a YKSO ' . (string)$user->name]. '.');
+            return view('app.home', ['ok_alert' => 'Bienvenido a YKSO ' . (string)$user->name. '.']);
         }
 
         return view('auth.login', ['alert' => 'Usuario incorrecto.']);
