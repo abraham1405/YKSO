@@ -25,7 +25,7 @@ return new class extends Migration
 
         User::create([
             'name'=>'admin',
-            'email'=>'ronnybastidasvera@gmail.com',
+            'email'=>'aaroncito.loayza@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'admin',
             'photo'=>'/user/admin.png'
