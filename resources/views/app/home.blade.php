@@ -3,5 +3,5 @@
 @section('title', 'ykso | home')
 
 @section('content')
-    Hola
+    KLK Manin
 @endsection
