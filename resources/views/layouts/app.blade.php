@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -170,7 +170,13 @@
 
     @include('utils.alerts')
     @include('utils.modals')
+<<<<<<< HEAD
     @vite('resources/js/app.js')
+=======
+
+    @yield('scripts')
+    <!-- @vite('resources/js/app.js')  -->
+>>>>>>> 1625556738064515095c54acb635927c5f97a945
 </body>
 
 </html>
