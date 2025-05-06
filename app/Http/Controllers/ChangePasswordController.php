@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use function Laravel\Prompts\password;
+
 class ChangePasswordController extends AuthController
 {
     public function start()
@@ -20,26 +22,25 @@ class ChangePasswordController extends AuthController
         $mensaje = 'Error en los datos introducidos.';
         
         $password = (string)trim($request->password);
-        $new_password = (string)trim($request->new_password);
+        echo $request->getPassword();
+        $email = (string)trim($request->email);
+        $userCheck = User::where('email', '=', $email)->first();
+        //$mensaje = (string)$userCheck->email;
 
         //
-        if ($password == $new_password) {
-            $alert = 'alert';
-            $mensaje = 'No puedes poner lo mismo en ambos campos.';
-        }
-
-        //
-        $user = User::find(session('user.id'));
-
-        if ($user && Hash::check($password, $user->password)) {
-
-            $user->password = Hash::make($new_password);
-            $user->save();
+        if ($userCheck) {
+            $userCheck->password = Hash::make($password);
+            $userCheck->save();
 
             $alert = 'ok_alert';
             $mensaje = 'La contraseña ha sido cambiada correctamente.';
+            return view('app.change_password', [$alert => $mensaje]);
         }
 
+
+        $alert = 'alert';
+        $mensaje = 'No existe el usuario';
         return view('app.change_password', [$alert => $mensaje]);
+
     }
 }
