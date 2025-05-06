@@ -43,9 +43,14 @@
                                     <td>{{ $user->role }}</td>
 
                                     <td class="text-center">
-                                        <a type="button" href="{{ route('delete_user', $user->id) }}">
-                                            <i class="fa fa-trash text-white"></i>
-                                        </a>
+                                        <button type="button"
+                                            class="btn btn-danger btn-sm"
+                                            data-toggle="modal"
+                                            data-target="#confirmDeleteModal"
+                                            data-user-id="{{ $user->id }}"
+                                            data-user-name="{{ $user->name }}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -56,4 +61,32 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        console.log('Document ready');
+
+        $('#confirmDeleteModal').on('show.bs.modal', function (event) {
+            console.log('Modal triggered');
+
+            var button = $(event.relatedTarget);
+            var userId = button.data('user-id');
+            var userName = button.data('user-name');
+
+            console.log('User ID:', userId);
+            console.log('User Name:', userName);
+
+            $('#userNameToDelete').text(userName);
+
+            var deleteUrl = '{{ route("delete_user", ":id") }}';
+            deleteUrl = deleteUrl.replace(':id', userId);
+
+            console.log('Generated URL:', deleteUrl);
+
+            $('#confirmDeleteBtn').attr('href', deleteUrl);
+        });
+    });
+</script>
 @endsection
