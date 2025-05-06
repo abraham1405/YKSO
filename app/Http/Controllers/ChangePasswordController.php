@@ -33,8 +33,7 @@ class ChangePasswordController extends AuthController
             $userCheck->save();
 
             $alert = 'ok_alert';
-            // $mensaje = 'La contraseña ha sido cambiada correctamente.';
-            $mensaje = 'contraseña: '.$userCheck->password.' contraseña hash: '.$password;
+            $mensaje = 'La contraseña ha sido cambiada correctamente.';
             return view('app.change_password', [$alert => $mensaje]);
         }
 
