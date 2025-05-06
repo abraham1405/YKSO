@@ -82,7 +82,7 @@
                                 <a href="{{ route('modificar_empleados') }}" class="nav-link">
                                     <i class="nav-icon fa fa-user-edit"></i>
                                     <p>
-                                        Modificar empleados
+                                        Información empleados
                                     </p>
                                 </a>
                             </li>

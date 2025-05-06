@@ -20,6 +20,7 @@
                             <th>Dirección</th>
                             <th>Empresa Asignada</th>
                             <th>Contacto Emergencia</th>
+                            <th>Fecha Ingreso</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                                 <td>{{ $empleado->userData->address ?? '-' }}</td>
                                 <td>{{ $empleado->userData->company_assigned ?? '-' }}</td>
                                 <td>{{ $empleado->userData->emergency_contact ?? '-' }}</td>
+                                <td>{{ $empleado->userData->entry_date ?? '-' }}</td>
                                 <td class="text-center">
                                     <button class="btn btn-sm btn-primary" data-toggle="modal"
                                         data-target="#modal-edit-{{ $empleado->id }}">
