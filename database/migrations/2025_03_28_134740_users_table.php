@@ -28,7 +28,7 @@ return new class extends Migration
             'email'=>'aaroncito.loayza@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'admin',
-            'photo'=>'/user/admin.png'
+            'photo'=>'/user/aaron.jpg'
         ]);
 
         User::create([
@@ -36,7 +36,7 @@ return new class extends Migration
             'email'=>'test@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'empleado',
-            'photo'=>'/user/empleado.png'
+            'photo'=>'/user/abraham.jpg'
         ]);
 
         User::create([
@@ -44,7 +44,7 @@ return new class extends Migration
             'email'=>'test2@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'empleado',
-            'photo'=>'/user/jessy.png'
+            'photo'=>'/user/jessy.jpg'
         ]);
     }
 
