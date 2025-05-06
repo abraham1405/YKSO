@@ -30,6 +30,22 @@ return new class extends Migration
             'role'=>'admin',
             'photo'=>'/user/admin.png'
         ]);
+
+        User::create([
+            'name'=>'abraham',
+            'email'=>'test@gmail.com',
+            'password'=>Hash::make('1234'),
+            'role'=>'empleado',
+            'photo'=>'/user/empleado.png'
+        ]);
+
+        User::create([
+            'name'=>'jessy',
+            'email'=>'test2@gmail.com',
+            'password'=>Hash::make('1234'),
+            'role'=>'empleado',
+            'photo'=>'/user/jessy.png'
+        ]);
     }
 
     /**
