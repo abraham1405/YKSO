@@ -125,7 +125,7 @@
                                 <a href="{{ route('ChangePassword') }}" class="nav-link">
                                     <i class="nav-icon fa fa-key"></i>
                                     <p>
-                                        Cambiar contraseñas
+                                        Cambiar contraseña
                                     </p>
                                 </a>
                             </li>
