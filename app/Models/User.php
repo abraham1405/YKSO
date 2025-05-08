@@ -16,4 +16,9 @@ class User extends Model
         'role',
         'photo'
     ];
+
+    public function userData()
+    {
+        return $this->hasOne(UserData::class);
+    }
 }

@@ -78,6 +78,17 @@
                             </a>
                         </li>
 
+                            <li class="nav-item">
+                                <a href="{{ route('modificar_empleados') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-user-edit"></i>
+                                    <p>
+                                        Información empleados
+                                    </p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
                     </ul>
                 </nav>
                 @endif
