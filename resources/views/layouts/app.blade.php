@@ -63,23 +63,23 @@
 
                 <!--OPCIONES ADMINISTRADOR-->
                 @if (session()->has('user') && session('user.role') == 'admin')
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                            data-accordion="false">
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
 
-                            <li class="nav-header">ADMINISTRACIÓN</li>
+                        <li class="nav-header">ADMINISTRACIÓN</li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('users') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-users"></i>
-                                    <p>
-                                        Gestión de usuarios
-                                    </p>
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a href="{{ route('users') }}" class="nav-link">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    Gestión de usuarios
+                                </p>
+                            </a>
+                        </li>
 
-                        </ul>
-                    </nav>
+                    </ul>
+                </nav>
                 @endif
 
                 <!-- GENERAL -->
@@ -89,18 +89,27 @@
 
                         <li class="nav-header">FUNCIONES</li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('users') }}" class="nav-link">
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>
+                                    Buzón
+                                </p>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
 
 
                 @if (session()->has('user'))
-                    <!--OPCIONES USUARIO-->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                            data-accordion="false">
+                <!--OPCIONES USUARIO-->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
 
-                            <li class="nav-header">OPCIONES</li>
-
+                        <li class="nav-header">OPCIONES</li>
+                        @if(session('user.role') == 'admin')
                             <li class="nav-item">
                                 <a href="{{ route('ChangePassword') }}" class="nav-link">
                                     <i class="nav-icon fa fa-key"></i>
@@ -109,18 +118,30 @@
                                     </p>
                                 </a>
                             </li>
+                        @endif
 
+                        @if(session('user.role') != 'admin')
                             <li class="nav-item">
-                                <a href="{{ route('logout') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-times-circle"></i>
+                                <a href="{{ route('ChangePassword') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-key"></i>
                                     <p>
-                                        Cerrar Sesión
+                                        Solicitud de cambio contraseña
                                     </p>
                                 </a>
                             </li>
+                        @endif
 
-                        </ul>
-                    </nav>
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" class="nav-link">
+                                <i class="nav-icon fa fa-times-circle"></i>
+                                <p>
+                                    Cerrar Sesión
+                                </p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
                 @endif
 
             </div>
