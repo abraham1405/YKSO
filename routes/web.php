@@ -31,4 +31,5 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(ChangePasswordController::class)->group(function () {
     Route::get('/ChangePassword', 'start')->name('ChangePassword');
     Route::post('/ChangePassword/input', 'input')->name('ChangePassword_input');
+    Route::post('/ChangePassword/passwordRequest', 'passwordRequest')->name('ChangePassword_request');
 });

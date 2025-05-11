@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use Session;
 use function Laravel\Prompts\password;
 
 class ChangePasswordController extends AuthController
@@ -25,7 +26,6 @@ class ChangePasswordController extends AuthController
         echo $request->getPassword();
         $email = (string)trim($request->email);
         $userCheck = User::where('email', '=', $email)->first();
-        //$mensaje = (string)$userCheck->email;
 
         //
         if ($userCheck) {
@@ -41,6 +41,11 @@ class ChangePasswordController extends AuthController
         $alert = 'alert';
         $mensaje = 'No existe el usuario';
         return view('app.change_password', [$alert => $mensaje]);
+
+    }
+
+    public function passwordRequest(Request $request){
+        $userId = Auth::id();
 
     }
 }
