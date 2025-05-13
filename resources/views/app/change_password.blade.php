@@ -11,7 +11,7 @@
                 <h3 class="card-title">Cambiar contraseña</h3>
             </div>
 
-            @if (session('user.role') != 'admin')
+            @if (session('user.role') !== 'admin')
             <form method="POST" action="{{route('ChangePassword_input')}}">
                 @csrf
 
@@ -26,9 +26,7 @@
                     <button type="submit" class="btn btn-primary">Solicitud de nueva contraseña</button>
                 </div>
             </form>
-            @endif
-
-            @if (session('user.role') == 'admin')
+            @else
             <form method="POST" action="{{route('ChangePassword_request')}}">
                 @csrf
 
@@ -39,7 +37,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="new_password">Nueva contraseña</label>
+                        <label for="password">Nueva contraseña</label>
                         <input type="password" class="form-control" name="password" required>
                     </div>
                 </div>
@@ -49,6 +47,10 @@
                 </div>
             </form>
             @endif
+
+            @error('password')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
     </div>
 </div>

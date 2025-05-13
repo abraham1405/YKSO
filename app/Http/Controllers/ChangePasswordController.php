@@ -19,33 +19,62 @@ class ChangePasswordController extends AuthController
 
     public function input(Request $request)
     {
+        $user = Auth::user();
         $alert = 'alert';
-        $mensaje = 'Error en los datos introducidos.';
-        
-        $password = (string)trim($request->password);
-        echo $request->getPassword();
-        $email = (string)trim($request->email);
-        $userCheck = User::where('email', '=', $email)->first();
 
-        //
-        if ($userCheck) {
-            $userCheck->password = Hash::make($password);
-            $userCheck->save();
+        $user = Auth::user();
 
-            $alert = 'ok_alert';
-            $mensaje = 'La contraseña ha sido cambiada correctamente.';
-            return view('app.change_password', [$alert => $mensaje]);
+        if (!Auth::check()) {
+            return redirect('/')->with('alert', 'Usuario no autenticado');
+
         }
 
+        $role = $user->role;
 
-        $alert = 'alert';
-        $mensaje = 'No existe el usuario';
-        return view('app.change_password', [$alert => $mensaje]);
+        if ($role === 'admin') {
+
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:8',
+            ]);
+
+            $targetUser = User::where('email', $request->email)->first();
+
+            if (!$targetUser) {
+                return view('app.change_password', [$alert => 'No existe el usuario con ese correo.']);
+            }
+
+            $targetUser->password = Hash::make($request->password);
+            $targetUser->save();
+
+            return view('app.change_password', ['ok_alert' => 'Contraseña actualizada correctamente para el usuario.']);
+        }
+        else {
+            $this->passwordRequest($request, $user);
+        }
 
     }
 
-    public function passwordRequest(Request $request){
-        $userId = Auth::id();
+    private function passwordRequest(Request $request, $Account)
+    {
+        if ($request->isMethod('get')) {
+            return view('app.change_password');
+        }
 
+        $userData = session('user');
+        if (!$userData) {
+            return redirect()->route('login')->with('alert', 'Sesión expirada.');
+        }
+
+        $password = trim($request->password);
+
+        if (!$this->password_is_correct($password)) {
+            return view('app.change_password', ['alert' => 'La contraseña debe tener mínimo 8 caracteres, letras y números.']);
+        }
+
+        $Account->password = Hash::make($password);
+        $Account->save();
+
+        return view('app.change_password', ['ok_alert' => 'Contraseña actualizada correctamente.']);
     }
 }

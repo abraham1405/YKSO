@@ -120,7 +120,7 @@
                         data-accordion="false">
 
                         <li class="nav-header">OPCIONES</li>
-                        @if(session('user.role') == 'admin')
+
                             <li class="nav-item">
                                 <a href="{{ route('ChangePassword') }}" class="nav-link">
                                     <i class="nav-icon fa fa-key"></i>
@@ -129,18 +129,7 @@
                                     </p>
                                 </a>
                             </li>
-                        @endif
 
-                        @if(session('user.role') != 'admin')
-                            <li class="nav-item">
-                                <a href="{{ route('ChangePassword') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-key"></i>
-                                    <p>
-                                        Solicitud de cambio contraseña
-                                    </p>
-                                </a>
-                            </li>
-                        @endif
 
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" class="nav-link">
