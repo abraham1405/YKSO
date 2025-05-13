@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('message_inbox', function (Blueprint $table) {
+        Schema::create('message_inboxes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sender_id');     // ID del usuario que envía
             $table->unsignedBigInteger('receiver_id');   // ID del usuario que recibe
             $table->string('subject')->nullable();       // Asunto del mensaje
             $table->text('body');                        // Cuerpo del mensaje
             $table->boolean('is_read')->default(false);  // Si fue leído o no
+            $table->string('status')->default('unread');
             $table->timestamps();
 
-            // Claves foráneas (opcional)
+            // Claves foráneas
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
         });

@@ -12,41 +12,45 @@
             </div>
 
             @if (session('user.role') !== 'admin')
-            <form method="POST" action="{{route('ChangePassword_input')}}">
-                @csrf
+                <form method="POST" action="{{ route('ChangePassword_input') }}">
+                    @csrf
 
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="new_password">Nueva contraseña</label>
-                        <input type="password" class="form-control" name="password" required>
+                    {{-- Campo oculto para enviar el nombre del usuario desde sesión --}}
+                    <input type="hidden" name="name" value="{{ session('user.name') }}">
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="new_password">Nueva contraseña</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Solicitud de nueva contraseña</button>
-                </div>
-            </form>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Solicitud de nueva contraseña</button>
+                    </div>
+                </form>
             @else
-            <form method="POST" action="{{route('ChangePassword_request')}}">
-                @csrf
+                <form method="POST" action="{{ route('ChangePassword_input') }}">
+                    @csrf
 
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="email">Correo del usuario</label>
-                        <input type="text" class="form-control" name="email" required>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="email">Correo del usuario</label>
+                            <input type="text" class="form-control" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Nueva contraseña</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Nueva contraseña</label>
-                        <input type="password" class="form-control" name="password" required>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Cambiar nueva contraseña</button>
                     </div>
-                </div>
-
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Cambiar nueva contraseña</button>
-                </div>
-            </form>
+                </form>
             @endif
+
 
             @error('password')
             <div class="text-danger">{{ $message }}</div>

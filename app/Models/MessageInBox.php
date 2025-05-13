@@ -9,7 +9,7 @@ class MessageInbox extends Model
 {
     use HasFactory;
 
-    protected $table = 'MessageInBox'; // si usas otro nombre, cámbialo
+    protected $table = 'message_inboxes'; // Actualiza el nombre de la tabla si es necesario
 
     protected $fillable = [
         'sender_id',

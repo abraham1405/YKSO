@@ -101,7 +101,7 @@
                         <li class="nav-header">FUNCIONES</li>
 
                         <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link">
+                            <a href="{{ route('mailbox') }}" class="nav-link">
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>
                                     Buzón
