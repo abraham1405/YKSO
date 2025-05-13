@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 //login
@@ -28,8 +30,16 @@ Route::controller(UserController::class)->group(function () {
 });
 
 //cambiar contraseña
+
 Route::controller(ChangePasswordController::class)->group(function () {
     Route::get('/ChangePassword', 'start')->name('ChangePassword');
     Route::post('/ChangePassword/input', 'input')->name('ChangePassword_input');
-    Route::post('/ChangePassword/passwordRequest', 'passwordRequest')->name('ChangePassword_request');
+});
+
+// Funciones mail
+
+Route::controller(MailController::class)->group(function () {
+    Route::get('/mailbox', [MailController::class, 'mailbox'])->name('mailbox');
+    Route::post('/send-mail', [MailController::class, 'send'])->name('send_mail');
+    Route::post('/mark-as-read/{id}', [MessageController::class, 'markAsRead'])->name('mark_as_read');
 });

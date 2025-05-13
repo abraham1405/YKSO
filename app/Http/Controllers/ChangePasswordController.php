@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 use Session;
 use function Laravel\Prompts\password;
@@ -19,33 +20,49 @@ class ChangePasswordController extends AuthController
 
     public function input(Request $request)
     {
-        $alert = 'alert';
-        $mensaje = 'Error en los datos introducidos.';
-        
-        $password = (string)trim($request->password);
-        echo $request->getPassword();
-        $email = (string)trim($request->email);
-        $userCheck = User::where('email', '=', $email)->first();
+        $sessionUser = session('user');
 
-        //
-        if ($userCheck) {
-            $userCheck->password = Hash::make($password);
-            $userCheck->save();
+        // Validación de contraseña segura
+        $validator = Validator::make($request->all(), [
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[a-zA-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/',
+            ],
+        ]);
 
-            $alert = 'ok_alert';
-            $mensaje = 'La contraseña ha sido cambiada correctamente.';
-            return view('app.change_password', [$alert => $mensaje]);
+        if ($validator->fails()) {
+            return view('app.change_password', [
+                'alert' => 'La contraseña no cumple con los requisitos de seguridad.',
+                'errors' => $validator->errors()
+            ]);
         }
 
+        if ($sessionUser['role'] === 'admin') {
+            $targetUser = User::where('email', $request->email)->first();
 
-        $alert = 'alert';
-        $mensaje = 'No existe el usuario';
-        return view('app.change_password', [$alert => $mensaje]);
+            if (!$targetUser) {
+                return view('app.change_password', ['alert' => 'No existe el usuario con ese correo.']);
+            }
 
-    }
+            $targetUser->password = Hash::make($request->password);
+            $targetUser->save();
 
-    public function passwordRequest(Request $request){
-        $userId = Auth::id();
+            return view('app.change_password', ['ok_alert' => 'Contraseña actualizada correctamente para ' . $targetUser->name]);
+        } else {
+            $Account = User::where('name', $sessionUser['name'])->first();
 
+            if (!$Account) {
+                return view('app.change_password', ['alert' => 'Error al encontrar el usuario autenticado.']);
+            }
+
+            $Account->password = Hash::make($request->password);
+            $Account->save();
+
+            return view('app.change_password', ['ok_alert' => 'Tu contraseña fue actualizada correctamente.']);
+        }
     }
 }
