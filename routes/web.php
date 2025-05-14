@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\EmployeeTimeLogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
@@ -42,4 +43,11 @@ Route::controller(MailController::class)->group(function () {
     Route::get('/mailbox', [MailController::class, 'mailbox'])->name('mailbox');
     Route::post('/send-mail', [MailController::class, 'send'])->name('send_mail');
     Route::post('/mark-as-read/{id}', [MessageController::class, 'markAsRead'])->name('mark_as_read');
+});
+
+// Fichaje
+
+Route::controller(EmployeeTimeLogController::class)->group(function () {
+    Route::get('/fichar', [EmployeeTimeLogController::class, 'start'])->name('fichar');
+    Route::post('/marcar',[EmployeeTimeLogController::class, 'marcar'])->name('marcar');
 });

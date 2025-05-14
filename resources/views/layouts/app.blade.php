@@ -25,8 +25,7 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
@@ -42,8 +41,7 @@
 
             <!--logo-->
             <a href="{{ route('home') }}" class="brand-link">
-                <img src="{{ asset('img/app/logo_sidebar.png') }}" alt="ykso" class="brand-image"
-                    style="opacity: .8">
+                <img src="{{ asset('img/app/logo_sidebar.png') }}" alt="ykso" class="brand-image" style="opacity: .8">
                 <span class="brand-text font-weight-light">Y<span style="font-weight: bold;">K</span>SO</span>
             </a>
 
@@ -63,20 +61,20 @@
 
                 <!--OPCIONES ADMINISTRADOR-->
                 @if (session()->has('user') && session('user.role') == 'admin')
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
 
-                        <li class="nav-header">ADMINISTRACIÓN</li>
+                            <li class="nav-header">ADMINISTRACIÓN</li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link">
-                                <i class="nav-icon fa fa-users"></i>
-                                <p>
-                                    Gestión de usuarios
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-users"></i>
+                                    <p>
+                                        Gestión de usuarios
+                                    </p>
+                                </a>
+                            </li>
 
                             <li class="nav-item">
                                 <a href="{{ route('modificar_empleados') }}" class="nav-link">
@@ -90,7 +88,7 @@
                         </ul>
                     </nav>
                     </ul>
-                </nav>
+                    </nav>
                 @endif
 
                 <!-- GENERAL -->
@@ -108,18 +106,25 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('fichar') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-clock"></i>
+                                <p>Fichaje</p>
+                            </a>
+                        </li>
+
 
                     </ul>
                 </nav>
 
 
                 @if (session()->has('user'))
-                <!--OPCIONES USUARIO-->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <!--OPCIONES USUARIO-->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
 
-                        <li class="nav-header">OPCIONES</li>
+                            <li class="nav-header">OPCIONES</li>
 
                             <li class="nav-item">
                                 <a href="{{ route('ChangePassword') }}" class="nav-link">
@@ -131,17 +136,17 @@
                             </li>
 
 
-                        <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="nav-link">
-                                <i class="nav-icon fa fa-times-circle"></i>
-                                <p>
-                                    Cerrar Sesión
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{ route('logout') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-times-circle"></i>
+                                    <p>
+                                        Cerrar Sesión
+                                    </p>
+                                </a>
+                            </li>
 
-                    </ul>
-                </nav>
+                        </ul>
+                    </nav>
                 @endif
 
             </div>
@@ -179,7 +184,8 @@
     <script src="{{ asset('plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-    {{-- <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script> --}}
+    {{--
+    <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script> --}}
 
     @include('utils.alerts')
     @include('utils.modals')
