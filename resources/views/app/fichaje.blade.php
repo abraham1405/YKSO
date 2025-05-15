@@ -108,7 +108,7 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <p>⚠️ Cada botón de fichaje solo puede ser pulsado <strong>una vez al día</strong>. Asegúrate de no equivocarte.</p>
+                <p>⚠️ Ten cuidado por entrar y salir muchas veces... <strong> podras ser sancionado</strong>. Asegúrate de no equivocarte.</p>
                 <p>❗ Si cometes un error, por favor envía un correo a uno de los siguientes administradores:</p>
                 <ul>
                     <li>aaronsitooLoayza@YKSO.com</li>
@@ -116,7 +116,7 @@
                     <li>abrahamZavala@YKSO.com</li>
                     <li>recursos.humanos@YKSO.com</li>
                 </ul>
-                <p>📬 En el correo, indica claramente tu nombre de usuario, la fecha y el tipo de error cometido.</p>
+                <p>📬 En el correo, indica claramente la fecha y el tipo de error cometido.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
