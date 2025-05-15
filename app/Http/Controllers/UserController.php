@@ -114,4 +114,14 @@ class UserController extends AuthController
         // Redirigir con mensaje de éxito
         return redirect()->route('modificar_empleados')->with('ok_alert', 'Información del empleado actualizada correctamente.');
     }
+
+    // Función para mostrar el listado de empleados
+    public function informacion()
+    {
+        $user = session('user');
+        $userId = $user['id'];
+        // Obtener los usuarios con rol 'empleado' junto con su información adicional
+        $empleado = User::where('id', $userId)->with('userData')->first();
+        return view('app.User_data', compact('empleado'));
+    }
 }

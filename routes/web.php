@@ -28,6 +28,8 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/usuarios/borrar/{id}', 'delete')->name('delete_user');
     Route::get('/empleados/modificar', [UserController::class, 'modificarEmpleados'])->name('modificar_empleados');
     Route::post('/empleados/modificar/{id}', [UserController::class, 'actualizarEmpleado'])->name('actualizar_empleado');
+    Route::get('/empleados/informacion', [UserController::class, 'informacion'])->name('informacion');
+
 });
 
 //cambiar contraseña

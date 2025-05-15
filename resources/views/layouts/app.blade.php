@@ -116,7 +116,14 @@
                                 <p>Fichaje</p>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="{{ route('informacion') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Información empleados
+                                </p>
+                            </a>
+                        </li>
 
                     </ul>
                 </nav>
