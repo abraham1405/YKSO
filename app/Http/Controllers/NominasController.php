@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use Illuminate\Http\Request;
 use App\Models\User; // Asegúrate de tener un modelo User
 use App\Models\EmployeeTimeLog;
@@ -150,5 +151,17 @@ class NominasController extends Controller
                 'month' => $mesFormateado,
             ]
         );
+    }
+    
+    public function generarPDF($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        $mes = $request->query('mes', now()->month);
+        $anio = $request->query('anio', now()->year);
+
+        $datos = $this->calcularNominaCompleta($user, $mes, $anio);
+
+        $pdf = PDF::loadView('pdf.nomina', compact('user', 'mes', 'anio', 'datos'));
+        return $pdf->download("nomina_{$user->name}_{$mes}_{$anio}.pdf");
     }
 }

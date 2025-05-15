@@ -34,6 +34,7 @@ Route::controller(UserController::class)->group(function () {
 // nóminas
 Route::controller(NominasController::class)->group(function () {
     Route::get('/admin/nominas', 'index')->name('admin.nominas');
+    Route::get('/nomina/pdf/{id}', [NominasController::class, 'generarPDF'])->name('nomina.pdf');
 });
 
 //cambiar contraseña

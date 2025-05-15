@@ -30,6 +30,7 @@
                     <th>Horas Extras</th>
                     <th>Salario Bruto (€)</th>
                     <th>Salario Neto (€)</th>
+                    <th>Acción</th> {{-- Nueva columna --}}
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,12 @@
                         <td>{{ number_format($nomina['horas_extras'], 2) }}</td>
                         <td>{{ number_format($nomina['salario_bruto'], 2) }}</td>
                         <td>{{ number_format($nomina['salario_neto'], 2) }}</td>
+                        <td>
+                            <a href="{{ route('nomina.pdf', ['id' => $nomina['empleado']->id, 'mes' => $mesSeleccionado]) }}"
+                            class="btn btn-sm btn-primary">
+                                PDF
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
