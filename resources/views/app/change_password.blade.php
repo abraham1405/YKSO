@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Solicitud de nueva contraseña</button>
+                        <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
                     </div>
                 </form>
             @else
