@@ -13,56 +13,82 @@ class NominasController extends Controller
 {
     public function index(Request $request)
     {
-        $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-        // Definir rango de años y meses para crear nóminas
-        // Por ejemplo, desde enero 2025 hasta el mes actual
         $anioInicio = 2025;
         $anioActual = date('Y');
         $mesActual = date('n');
 
-        $empleados = User::all();
-
-        // Aquí guardaremos las nóminas a mostrar del mes seleccionado (o actual)
-        $nominas = [];
-
-        // Mes seleccionado para mostrar en vista (por defecto mes actual)
         $mesSeleccionado = $request->input('mes', $mesActual);
         $anioSeleccionado = $anioActual;
         $nombreMesSeleccionado = $meses[$mesSeleccionado - 1];
 
-        // Para cada empleado
-        foreach ($empleados as $empleado) {
+        // Obtener datos del usuario autenticado desde sesión
+        $sessionUser = session('user');
 
-            // Crear nóminas para todos los meses desde $anioInicio hasta mes actual
-            for ($anio = $anioInicio; $anio <= $anioActual; $anio++) {
-                // Determinar mes final para este año (si es el año actual, hasta mes actual, si no, hasta diciembre)
-                $mesFin = 12;
+        if (!$sessionUser) {
+            return redirect('/')->with('alert', 'Debes iniciar sesión.');
+        }
 
-                for ($mes = 1; $mes <= $mesFin; $mes++) {
-                    // Calcular datos nómina
-                    $datosNomina = $this->calcularNominaCompleta($empleado, $mes, $anio);
+        $userId = $sessionUser['id'];
+        $role = $sessionUser['role'];
 
-                    // Guardar o actualizar en BD
-                    $this->guardarNomina($empleado, $mes, $anio, $datosNomina);
+        // Si es admin y hay un user_id en la petición, usamos ese
+        if ($role === 'admin' && $request->filled('user_id')) {
+            $user = User::find($request->input('user_id'));
 
-                    // Solo si es el mes seleccionado para mostrarlo en la vista
-                    if ($anio == $anioSeleccionado && $mes == $mesSeleccionado) {
-                        $nominas[] = [
-                            'empleado' => $empleado,
-                            'horas_normales' => $datosNomina['horas_normales'],
-                            'horas_extras' => $datosNomina['horas_extras'],
-                            'salario_bruto' => $datosNomina['salario_bruto'],
-                            'salario_neto' => $datosNomina['salario_neto'],
-                        ];
+            if (!$user) {
+                abort(404, "Usuario no encontrado");
+            }
+        } else {
+            // Si no es admin o no hay user_id, usamos al de la sesión
+            $user = User::find($userId);
+        }
+
+        $nominas = [];
+
+        if ($role === 'admin') {
+            $empleados = User::all();
+
+            foreach ($empleados as $empleado) {
+                for ($anio = $anioInicio; $anio <= $anioActual; $anio++) {
+                    for ($mes = 1; $mes <= 12; $mes++) {
+                        $datosNomina = $this->calcularNominaCompleta($empleado, $mes, $anio);
+                        $this->guardarNomina($empleado, $mes, $anio, $datosNomina);
+
+                        if ($anio == $anioSeleccionado && $mes == $mesSeleccionado) {
+                            $nominas[] = [
+                                'empleado' => $empleado,
+                                'horas_normales' => $datosNomina['horas_normales'],
+                                'horas_extras' => $datosNomina['horas_extras'],
+                                'salario_bruto' => $datosNomina['salario_bruto'],
+                                'salario_neto' => $datosNomina['salario_neto'],
+                            ];
+                        }
                     }
                 }
             }
+
+            return view('admin.nominas', compact('nominas', 'mesSeleccionado', 'nombreMesSeleccionado', 'meses'))
+                ->with('isAdmin', true);
         }
 
-        return view('admin.nominas', compact('nominas', 'mesSeleccionado', 'nombreMesSeleccionado', 'meses'));
-    }
+        // Si no es admin, solo se calcula y muestra su propia nómina
+        $datosNomina = $this->calcularNominaCompleta($user, $mesSeleccionado, $anioSeleccionado);
+        $this->guardarNomina($user, $mesSeleccionado, $anioSeleccionado, $datosNomina);
 
+        $nominas[] = [
+            'empleado' => $user,
+            'horas_normales' => $datosNomina['horas_normales'],
+            'horas_extras' => $datosNomina['horas_extras'],
+            'salario_bruto' => $datosNomina['salario_bruto'],
+            'salario_neto' => $datosNomina['salario_neto'],
+        ];
+
+        return view('admin.nominas', compact('nominas', 'mesSeleccionado', 'nombreMesSeleccionado', 'meses'))
+            ->with('isAdmin', false);
+    }
 
 
     public function calcularNominaCompleta($empleado, $mes, $anio)

@@ -126,7 +126,14 @@
                             </a>
                         </li>
 
-
+                        @if (session()->has('user') && session('user.role') == 'empleado')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.nominas') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-money-bill-wave"></i>
+                                    <p>Mi Nómina</p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
 
