@@ -10,12 +10,16 @@
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <!-- FontAwesome (para los íconos del modal) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
     <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
 </head>
+
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -25,8 +29,7 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
@@ -42,8 +45,7 @@
 
             <!--logo-->
             <a href="{{ route('home') }}" class="brand-link">
-                <img src="{{ asset('img/app/logo_sidebar.png') }}" alt="ykso" class="brand-image"
-                    style="opacity: .8">
+                <img src="{{ asset('img/app/logo_sidebar.png') }}" alt="ykso" class="brand-image" style="opacity: .8">
                 <span class="brand-text font-weight-light">Y<span style="font-weight: bold;">K</span>SO</span>
             </a>
 
@@ -78,18 +80,18 @@
                             </a>
                         </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('modificar_empleados') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-user-edit"></i>
-                                    <p>
-                                        Información empleados
-                                    </p>
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a href="{{ route('modificar_empleados') }}" class="nav-link">
+                                <i class="nav-icon fa fa-user-edit"></i>
+                                <p>
+                                    Información empleados
+                                </p>
+                            </a>
+                        </li>
 
-                        </ul>
-                    </nav>
                     </ul>
+                </nav>
+                </ul>
                 </nav>
                 @endif
 
@@ -108,6 +110,13 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('fichar') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-clock"></i>
+                                <p>Fichaje</p>
+                            </a>
+                        </li>
+
 
                     </ul>
                 </nav>
@@ -121,14 +130,14 @@
 
                         <li class="nav-header">OPCIONES</li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('ChangePassword') }}" class="nav-link">
-                                    <i class="nav-icon fa fa-key"></i>
-                                    <p>
-                                        Cambiar contraseña
-                                    </p>
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a href="{{ route('ChangePassword') }}" class="nav-link">
+                                <i class="nav-icon fa fa-key"></i>
+                                <p>
+                                    Cambiar contraseña
+                                </p>
+                            </a>
+                        </li>
 
 
                         <li class="nav-item">
@@ -170,22 +179,31 @@
         </footer>
     </div>
 
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- jQuery 3.6.0 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Popper.js y Bootstrap 4.6 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+    <!-- AdminLTE 3 + plugins -->
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+    <!-- Otras librerías opcionales -->
     <script src="{{ asset('plugins/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
     <script src="{{ asset('plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-    {{-- <script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script> --}}
 
+    {{-- @include necesarios --}}
     @include('utils.alerts')
     @include('utils.modals')
-
     @yield('scripts')
+
     <!-- @vite('resources/js/app.js')  -->
+
 </body>
 
 </html>
