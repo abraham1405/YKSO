@@ -63,7 +63,7 @@ return new class extends Migration
                 $horasTrabajadas = 8.0;
 
                 // Variar horas: -1, 0, +1.5 horas con más peso a 8h
-                $variacion = collect([-1.0, 0, 1.5])->random();
+                $variacion = collect([0, 1.5])->random();
 
                 // Asegurar que no caiga por debajo de 6 horas ni más de 9.5h
                 $horasTrabajadas = max(6, min(9.5, $horasTrabajadas + $variacion));
@@ -138,7 +138,7 @@ foreach ($meses as $infoMes) {
             }
 
             $horasTrabajadas = 8.0;
-            $variacion = collect([-1.0, 0, 1.5])->random();
+            $variacion = collect([0, 1.5])->random();
             $horasTrabajadas = max(6, min(9.5, $horasTrabajadas + $variacion));
             $horasDescanso = 1.25;
 

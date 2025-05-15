@@ -26,16 +26,20 @@
             <thead>
                 <tr>
                     <th>Empleado</th>
-                    <th>Horas Trabajadas</th>
-                    <th>Salario (€)</th>
+                    <th>Horas Normales</th>
+                    <th>Horas Extras</th>
+                    <th>Salario Bruto (€)</th>
+                    <th>Salario Neto (€)</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($nominas as $nomina)
                     <tr>
                         <td>{{ $nomina['empleado']->name }}</td>
-                        <td>{{ number_format($nomina['horas_trabajadas'], 2) }}</td>
-                        <td>{{ number_format($nomina['salario'], 2) }}</td>
+                        <td>{{ number_format($nomina['horas_normales'], 2) }}</td>
+                        <td>{{ number_format($nomina['horas_extras'], 2) }}</td>
+                        <td>{{ number_format($nomina['salario_bruto'], 2) }}</td>
+                        <td>{{ number_format($nomina['salario_neto'], 2) }}</td>
                     </tr>
                 @endforeach
             </tbody>
