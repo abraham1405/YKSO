@@ -6,6 +6,7 @@ use App\Models\EmployeeTimeLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 
 class EmployeeTimeLogController extends Controller
 {
@@ -51,6 +52,8 @@ class EmployeeTimeLogController extends Controller
                 }
                 $registro->hora_entrada = $ahora;
                 session(['entrada_marcada' => true]);
+                $registro->save();
+
                 break;
 
             case 'salida':
@@ -72,6 +75,10 @@ class EmployeeTimeLogController extends Controller
                 if ($registro->hora_inicio_descanso && $registro->hora_fin_descanso) {
                     session()->forget(['descanso_inicio', 'descanso_fin']);
                 }
+                $registro->save();
+                Artisan::call('app:actualizar-horas-totales-todos-los-meses');
+
+
                 break;
 
             case 'descanso_inicio':
@@ -80,6 +87,8 @@ class EmployeeTimeLogController extends Controller
                 }
                 $registro->hora_inicio_descanso = $ahora;
                 session(['descanso_inicio' => true]);
+                $registro->save();
+
                 break;
 
             case 'descanso_fin':
@@ -98,10 +107,14 @@ class EmployeeTimeLogController extends Controller
 
                 $sancion = $descanso > 0.5 ? round($descanso - 0.5, 2) : 0;
                 $registro->sancion_horas = $sancion;
+                $registro->save();
+
                 break;
             case 'comida_inicio':
                 $registro->hora_inicio_comida = $ahora;
                 session(['comida_inicio' => true]);
+                $registro->save();
+
                 break;
 
             case 'comida_fin':
@@ -114,13 +127,13 @@ class EmployeeTimeLogController extends Controller
                     $sancion = $duracionComida > 1 ? round($duracionComida - 1, 2) : 0; // Máximo 1 hora
                     $registro->sancion_comida = $sancion;
                 }
+                $registro->save();
+
                 break;
 
             default:
                 return back()->withErrors('Acción no válida.');
         }
-
-        $registro->save();
 
         return redirect()->route('fichar')->with('success', 'Registro actualizado correctamente.');
     }

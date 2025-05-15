@@ -68,7 +68,7 @@ return new class extends Migration
             'email'=>'test3@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'empleado',
-            'photo'=>'/user/jessy.jpg'
+            'photo'=>'/user/aaron.jpg'
         ]);
     }
 

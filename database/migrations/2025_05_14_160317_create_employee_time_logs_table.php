@@ -106,7 +106,77 @@ return new class extends Migration
         }
 
         DB::table('employee_time_logs')->insert($registros);
+
+        $meses = [
+    [
+        'mes' => 3,
+        'festivos' => ['2025-03-19', '2025-03-28'], // Ejemplo de festivos en marzo
+    ],
+    [
+        'mes' => 2,
+        'festivos' => ['2025-02-28'], // Ejemplo de festivo en febrero
+    ],
+];
+
+foreach ($meses as $infoMes) {
+    $startDate = Carbon::create(2025, $infoMes['mes'], 1);
+    $endDate = $startDate->copy()->endOfMonth();
+    $festivos = $infoMes['festivos'];
+
+    $registros = [];
+
+    foreach ($empleados as $userId) {
+        $date = $startDate->copy();
+
+        while ($date->lessThanOrEqualTo($endDate)) {
+            if (
+                in_array($date->dayOfWeek, [Carbon::SUNDAY, Carbon::SATURDAY]) ||
+                in_array($date->toDateString(), $festivos)
+            ) {
+                $date->addDay();
+                continue;
+            }
+
+            $horasTrabajadas = 8.0;
+            $variacion = collect([-1.0, 0, 1.5])->random();
+            $horasTrabajadas = max(6, min(9.5, $horasTrabajadas + $variacion));
+            $horasDescanso = 1.25;
+
+            $entrada = Carbon::parse('08:00:00');
+            $salida = $entrada->copy()->addHours($horasTrabajadas + $horasDescanso);
+
+            $inicioDescanso = Carbon::parse('12:00:00');
+            $finDescanso = $inicioDescanso->copy()->addMinutes(30);
+
+            $inicioComida = Carbon::parse('14:30:00');
+            $finComida = $inicioComida->copy()->addMinutes(45);
+
+            $registros[] = [
+                'user_id' => $userId,
+                'date' => $date->toDateString(),
+                'hora_entrada' => $entrada->toTimeString(),
+                'hora_salida' => $salida->toTimeString(),
+                'hora_inicio_descanso' => $inicioDescanso->toTimeString(),
+                'hora_fin_descanso' => $finDescanso->toTimeString(),
+                'hora_inicio_comida' => $inicioComida->toTimeString(),
+                'hora_fin_comida' => $finComida->toTimeString(),
+                'horas_comida' => 0.75,
+                'sancion_comida' => 0.0,
+                'horas_trabajadas' => $horasTrabajadas,
+                'horas_descanso' => $horasDescanso,
+                'sancion_horas' => 0.0,
+                'horas_totales_mes' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+
+            $date->addDay();
+        }
     }
+
+    DB::table('employee_time_logs')->insert($registros);
+    }
+}
 
     /**
      * Reverse the migrations.
