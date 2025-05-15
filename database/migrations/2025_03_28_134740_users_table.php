@@ -24,7 +24,7 @@ return new class extends Migration
         });
 
         User::create([
-            'name'=>'admin',
+            'name'=>'Aaron_admin',
             'email'=>'aaroncito.loayza@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'admin',
@@ -32,7 +32,23 @@ return new class extends Migration
         ]);
 
         User::create([
-            'name'=>'abraham',
+            'name'=>'Abraham_admin',
+            'email'=>'abrahamZavala@YKSO.com',
+            'password'=>Hash::make('1234'),
+            'role'=>'admin',
+            'photo'=>'/user/abraham.jpg'
+        ]);
+
+        User::create([
+            'name'=>'Jessy_admin',
+            'email'=>'jessyMaradiaga@YKSO.com',
+            'password'=>Hash::make('1234'),
+            'role'=>'admin',
+            'photo'=>'/user/jessy.jpg'
+        ]);
+
+        User::create([
+            'name'=>'Abraham_Empleado',
             'email'=>'test@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'empleado',
@@ -40,8 +56,16 @@ return new class extends Migration
         ]);
 
         User::create([
-            'name'=>'jessy',
+            'name'=>'Jessy_Empleada',
             'email'=>'test2@gmail.com',
+            'password'=>Hash::make('1234'),
+            'role'=>'empleado',
+            'photo'=>'/user/jessy.jpg'
+        ]);
+
+        User::create([
+            'name'=>'Aaron_Empleado',
+            'email'=>'test3@gmail.com',
             'password'=>Hash::make('1234'),
             'role'=>'empleado',
             'photo'=>'/user/jessy.jpg'

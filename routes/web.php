@@ -48,6 +48,6 @@ Route::controller(MailController::class)->group(function () {
 // Fichaje
 
 Route::controller(EmployeeTimeLogController::class)->group(function () {
-    Route::get('/fichar', [EmployeeTimeLogController::class, 'start'])->name('fichar');
-    Route::post('/marcar',[EmployeeTimeLogController::class, 'marcar'])->name('marcar');
+    Route::post('/fichar', 'marcar')->name('marcar');
+    Route::get('/fichar', 'start')->name('fichar');
 });
