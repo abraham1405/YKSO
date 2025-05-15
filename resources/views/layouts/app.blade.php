@@ -133,7 +133,17 @@
                                     <p>Mi Nómina</p>
                                 </a>
                             </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('informacion') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Mi informacion
+                                </p>
+                            </a>
+                        </li>
                         @endif
+
                     </ul>
                 </nav>
 
