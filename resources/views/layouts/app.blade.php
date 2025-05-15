@@ -89,6 +89,15 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="{{ route('admin.nominas') }}" class="nav-link">
+                                    <i class="nav-icon fa fa-money-bill-wave"></i>
+                                    <p>
+                                        Nóminas
+                                    </p>
+                                </a>
+                            </li>
+
                         </ul>
                     </nav>
                     </ul>

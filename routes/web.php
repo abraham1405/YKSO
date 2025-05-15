@@ -5,6 +5,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\EmployeeTimeLogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NominasController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,11 @@ Route::controller(UserController::class)->group(function () {
     Route::get('/usuarios/borrar/{id}', 'delete')->name('delete_user');
     Route::get('/empleados/modificar', [UserController::class, 'modificarEmpleados'])->name('modificar_empleados');
     Route::post('/empleados/modificar/{id}', [UserController::class, 'actualizarEmpleado'])->name('actualizar_empleado');
+});
+
+// nóminas
+Route::controller(NominasController::class)->group(function () {
+    Route::get('/admin/nominas', 'index')->name('admin.nominas');
 });
 
 //cambiar contraseña
