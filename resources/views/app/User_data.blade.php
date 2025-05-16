@@ -20,7 +20,6 @@
                                 <th>Dirección</th>
                                 <th>Empresa Asignada</th>
                                 <th>Contacto Emergencia</th>
-                                <th class="text-center">Nómina</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,12 +30,6 @@
                                 <td>{{ $empleado->userData->address ?? '-' }}</td>
                                 <td>{{ $empleado->userData->company_assigned ?? '-' }}</td>
                                 <td>{{ $empleado->userData->emergency_contact ?? '-' }}</td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-primary" data-toggle="modal"
-                                        data-target="#modal-edit-{{ $empleado->id }}">
-                                        <i class="fa fa-download"></i>
-                                    </button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
